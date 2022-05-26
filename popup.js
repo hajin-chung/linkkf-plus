@@ -39,12 +39,19 @@ async function init() {
   const settings = await settingsStorage.get();
   const history = await historyStorage.get();
 
+  $("#auto").checked = settings.auto;
+  $("#save").checked = settings.save;
+
   $("#auto").onchange = (e) => {
-    settings.auto = e.target.value === "on";
+    settings.auto = e.target.checked;
+    settingsStorage.set(settings);
+  };
+  $("#save").onchange = (e) => {
+    settings.save = e.target.checked;
     settingsStorage.set(settings);
   };
 
-  if (history.length) {
+  if (history.length > 0) {
     history.forEach((v) => {
       let time = v.time ? v.time : 0;
       addHistoryItemElem(v.title, time, v.url);
@@ -53,6 +60,6 @@ async function init() {
 }
 
 window.onload = async () => {
-  initStorage();
+  await initStorage();
   await init();
 };

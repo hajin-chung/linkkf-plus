@@ -1,9 +1,11 @@
 class Storage {
-  constructor(name, initValue) {
+  constructor(name) {
     this.name = name;
-    chrome.storage.sync.get([name], (v) => {
-      if (v === undefined) chrome.storage.sync.set({ [name]: initValue });
-    });
+  }
+
+  async init(value) {
+    const v = await this.get();
+    if (v === undefined) await this.set(value);
   }
 
   async get() {
@@ -21,7 +23,10 @@ class Storage {
 var settingsStorage;
 var historyStorage;
 
-function initStorage() {
-  settingsStorage = new Storage("settings", {auto: false, save: false});
-  historyStorage = new Storage("history", []);
+async function initStorage() {
+  settingsStorage = new Storage("settings");
+  historyStorage = new Storage("history");
+
+  await settingsStorage.init({auto: false, save: false});
+  await historyStorage.init([]);
 }

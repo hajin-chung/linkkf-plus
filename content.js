@@ -2,7 +2,7 @@ window.onload = async () => {
   const isEpisode = document.querySelector(".myWrapper") !== null;
   const isIframe = document.querySelector("video") !== null;
 
-  initStorage();
+  await initStorage();
 
   if (isEpisode) await episode();
   if (isIframe) await iframe();
