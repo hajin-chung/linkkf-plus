@@ -1,0 +1,28 @@
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
+    <div id="main">
+      <h1>시청 기록</h1>
+      <div id="history"></div>
+      <div id="settings">
+        <div class="option">
+          <input type="checkbox" id="auto" name="auto" />
+          <label for="auto">자동 재생</label>
+        </div>
+      </div>
+    </div>
+
+    <div id="components">
+      <div class="history-item">
+        <div id="title"></div>
+        <div id="time"></div>
+        <img id="delete" src="images/delete.svg" />
+      </div>
+    </div>
+    <script src="popup.js"></script>
+  </body>
+</html>

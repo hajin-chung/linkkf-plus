@@ -1,0 +1,78 @@
+html body {
+  margin: 0;
+  padding: 0;
+}
+
+h1 {
+  margin: 0;
+  padding: 0;
+  /* font-size: 20px; */
+}
+
+a {
+  text-decoration: none;
+  color: black;
+}
+
+p {
+  margin: 0;
+}
+
+#main {
+  display: flex;
+  flex-direction: column;
+  padding: 6px;
+  width: 240px;
+}
+
+#history {
+  margin-top: 4px;
+  overflow-y: scroll;
+  max-height: 200px;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+}
+
+.history-item {
+  display: flex;
+  align-items: center;
+  border-top: 1px #666 solid;
+  padding: 0 6px;
+}
+
+.history-item:first-child {
+  border: none;
+}
+
+.history-item > #title {
+  font-size: 16px;
+  max-width: 60%;
+  cursor: pointer;
+}
+
+.history-item > #time {
+  margin-left: 4px;
+  font-size: 14px;
+  color: #222;
+}
+
+.history-item > #delete {
+  margin-left: auto;
+  cursor: pointer;
+}
+
+#settings {
+  display: flex;
+  flex-direction: column;
+  margin-top: 10px;
+}
+
+.option {
+  display: flex;
+  align-items: center;
+}
+
+#components {
+  display: none;
+}
