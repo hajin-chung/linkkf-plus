@@ -41,6 +41,7 @@ async function init() {
 
   $("#auto").checked = settings.auto;
   $("#save").checked = settings.save;
+  $("#autoPlay").checked = settings.autoPlay;
 
   $("#auto").onchange = (e) => {
     settings.auto = e.target.checked;
@@ -48,6 +49,10 @@ async function init() {
   };
   $("#save").onchange = (e) => {
     settings.save = e.target.checked;
+    settingsStorage.set(settings);
+  };
+  $("#autoPlay").onchange = (e) => {
+    settings.autoPlay = e.target.checked;
     settingsStorage.set(settings);
   };
 

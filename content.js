@@ -45,7 +45,14 @@ async function iframe() {
   const item = history.find((i) => i.id === id);
   let lastTime = 0;
 
+  videoElem.oncanplay = () => {
+    console.log("hi");
+    if (settings.auto || settings.autoPlay) videoElem.play();
+  }
+
   videoElem.onloadeddata = () => {
+    console.log("hi");
+    if (settings.auto || settings.autoPlay) videoElem.play();
     if (item !== undefined && settings.save) {
       videoElem.currentTime = item.time ? item.time : 0;
     }

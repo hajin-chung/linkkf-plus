@@ -22,11 +22,16 @@ class Storage {
 
 var settingsStorage;
 var historyStorage;
+const initialSettings = {
+  auto: false,
+  save: false,
+  autoStart: false
+}
 
 async function initStorage() {
   settingsStorage = new Storage("settings");
   historyStorage = new Storage("history");
 
-  await settingsStorage.init({auto: false, save: false});
+  await settingsStorage.init(initialSettings);
   await historyStorage.init([]);
 }
