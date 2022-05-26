@@ -2,32 +2,14 @@ window.onload = async () => {
   const isEpisode = document.querySelector(".myWrapper") !== null;
   const isIframe = document.querySelector("video") !== null;
 
-  await initStorage();
+  initStorage();
 
   if (isEpisode) await episode();
   if (isIframe) await iframe();
 };
 
-async function initStorage() {
-  const history = await getHistory();
-  if (history === null || history === undefined) await setHistory([]);
-
-  const { settings } = await chrome.storage.sync.get(["settings"]);
-  if (settings === null || settings === undefined)
-    await chrome.storage.sync.set({ settings: { auto: false } });
-}
-
-async function getHistory() {
-  const { history } = await chrome.storage.sync.get(["history"]);
-  return history;
-}
-
-async function setHistory(history) {
-  await chrome.storage.sync.set({ history });
-}
-
 async function updateHistory(id, info) {
-  const history = await getHistory();
+  const history = await historyStorage.get();
   const itemIdx = history.findIndex((item) => item.id === id);
 
   if (itemIdx === -1) {
@@ -39,7 +21,7 @@ async function updateHistory(id, info) {
     history[itemIdx] = mergedItem;
   }
 
-  setHistory(history);
+  historyStorage.set(history);
 }
 
 async function episode() {
@@ -55,11 +37,19 @@ async function episode() {
 }
 
 async function iframe() {
-  const { settings } = await chrome.storage.sync.get(["settings"]);
+  const settings = await settingsStorage.get();
+  const history = await historyStorage.get();
   const id = document.URL.split("=").at(-1);
   const videoElem = document.querySelector("video");
 
+  const item = history.find((i) => i.id === id);
   let lastTime = 0;
+
+  videoElem.onloadeddata = () => {
+    if (item !== undefined && settings.save) {
+      videoElem.currentTime = item.time ? item.time : 0;
+    }
+  };
 
   videoElem.ontimeupdate = (e) => {
     const currentTime = Math.floor(e.target.currentTime);
