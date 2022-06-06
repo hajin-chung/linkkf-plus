@@ -1,0 +1,6 @@
+*.ts
+*.mp4
+*.vtt
+__pycache__
+build
+dist
